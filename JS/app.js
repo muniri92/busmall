@@ -166,18 +166,3 @@ function chart2() {
   var ctx = document.getElementById('canvasTwo').getContext('2d');
   var myBarChart = new Chart(ctx).Bar(data);
 }
-//
-// var colors = ['#00FF00', '#191970','#2F4F4F', '#40E0D0', '#4682B4', '#A52A2A', '#9932CC', '#A9A9A9', '#B8860B', '	#D2691E', '#DAA520', '#FF1493', '#000000', '#DEB887'];
-// // POLAR AREA CHART
-// function chart3() {
-//  var data = [
-//       {
-//         value: percentChart[0],
-//         color: '#00FF00',
-//         highlight: "#FF5A5E",
-//         label: 'bag'
-//       }
-//     ];
-//     var ctx = document.getElementById('canvasThree').getContext('2d');
-//     var myPolarArea = new Chart(ctx).PolarArea(data);
-// }
