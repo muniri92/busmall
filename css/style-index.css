@@ -1,3 +1,9 @@
+body {
+  color: #665544;
+  background-color: #2B363B;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
 #firstImage {
   border-style: outset;
 }
@@ -12,6 +18,7 @@
 
 .intro {
   text-align: center;
+  color: #CACDCE;
 }
 
 .flex-container {
@@ -21,13 +28,29 @@
   padding: 20px, 5px, 20px, 5px;
 }
 
+.flex-item {
+  background-color: #CACDCE;
+  padding: 9px;
+}
+
 #button {
   display: flex;
   justify-content: center;
   padding: 20px 20px 20px 20px;
 }
+#results {
+  border-radius: 15px;
+  font-size: 16px;
+  text-align: center;
+}
 
-#chart {
+#results:hover {
+  transition-duration: 0.5s;
+  background-color: black;
+  color: #CACDCE;
+}
+
+.chart {
   display: flex;
   justify-content: space-around;;
 }

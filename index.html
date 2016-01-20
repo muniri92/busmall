@@ -4,18 +4,23 @@
     <meta charset="utf-8">
     <title>Busmall Cataloge</title>
     <link rel="stylesheet" href="css/style-index.css"  charset="utf-8">
+    <!-- CHART JS -->
     <script src="chart.js"></script>
   </head>
   <body>
-    <h2 class='intro'>Select the picture that appeals to you the most!</h2>
+    <!-- TITLE -->
+    <section class='intro'>
+      <h2>Select the image that appeals to you the most!</h2>
+    </section>
+    <!-- IMAGES -->
     <section class='flex-container'>
       <article class='flex-item'>
         <img id='firstImage'/>
       </article>
-      <article id='flex-item'>
+      <article class='flex-item'>
         <img id='secondImage'/>
       </article>
-      <article id='flex-item'>
+      <article class='flex-item'>
         <img id='thirdImage'/>
       </article>
     </section>
@@ -23,11 +28,16 @@
     <section id='button'>
       <button hidden type="button" id='results'>Display Results</button>
     </section>
-    <!-- CHART -->
-    <section id='chart'>
+    <!-- BAR CHART -->
+    <section class='chart'>
       <canvas id="canvasOne" width="300" height="300"></canvas>
       <canvas id="canvasTwo" width="300" height="300"></canvas>
     </section>
+    <!-- POLAR AREA CHART -->
+    <section class='chart'>
+      <canvas id="canvasThree" width="300" height="300"></canvas>
+    </section>
+    <!-- JAVASCRIPT -->
     <script type="text/javascript" src='joke2.js'></script>
   </body>
 </html>
