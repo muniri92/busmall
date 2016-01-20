@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Busmall Cataloge</title>
     <link rel="stylesheet" href="css/style-index.css"  charset="utf-8">
+    <script src="chart.js"></script>
   </head>
   <body>
     <h2 class='intro'>Select the picture that appeals to you the most!</h2>
@@ -18,6 +19,15 @@
         <img id='thirdImage'/>
       </article>
     </section>
-    <script type="text/javascript" src='JS/app.js'></script>
+    <!-- BUTTON -->
+    <section id='button'>
+      <button hidden type="button" id='results'>Display Results</button>
+    </section>
+    <!-- CHART -->
+    <section id='chart'>
+      <canvas id="canvasOne" width="300" height="300"></canvas>
+      <canvas id="canvasTwo" width="300" height="300"></canvas>
+    </section>
+    <script type="text/javascript" src='joke2.js'></script>
   </body>
 </html>

@@ -2,6 +2,7 @@
 'use strict'
 var productArray = [];
 var count = 0;
+
 // CONSTRUCTOR
 function Product(names, src) {
   this.names = names;
@@ -11,15 +12,19 @@ function Product(names, src) {
   this.percentClick = 0;
   productArray.push(this);
 }
+
 // METHOD FOR CALCULATING PERCENTAGE
 Product.prototype.percent = function () {
   this.percentClick = ((this.timesClicked / this.timesDisplayed).toFixed(2) * 100);
 };
+
 function generateRandom() {
   return +(Math.floor((Math.random() * 14)));
 };
+
 // ALL PRODUCT ARRAY
 var allProducts = [new Product('bag', 'bag.jpg'), new Product('banana', 'banana.jpg'), new Product('boots', 'boots.jpg'), new Product('chair', 'chair.jpg'), new Product('cthulhu', 'cthulhu.jpg'), new Product('dragon', 'dragon.jpg'), new Product('pen', 'pen.jpg'), new Product('scissors', 'scissors.jpg'), new Product('shark', 'shark.jpg'), new Product('sweep', 'sweep.jpg'), new Product('unicorn', 'unicorn.jpg'), new Product('usb', 'usb.gif'), new Product('waterCan', 'water-can.jpg'), new Product('wineGlass', 'wine-glass.jpg')];
+
 // TO AVIOD REPEATING PICTURES
 var rand1;
 var rand2;
@@ -45,6 +50,7 @@ function random() {
   allProducts[rand3].timesDisplayed++;
 }
 random();
+
 // EVENT HANDLER FOR IMAGE
 function handleImage(image) {
   image.timesClicked += 1;
@@ -56,6 +62,7 @@ function handleImage(image) {
   dataSets3();
   random();
 }
+
 // EVENT LISTENER FOR IMAGE
 firstImage.addEventListener('click', function(){
   handleImage(allProducts[rand1]);
@@ -66,6 +73,7 @@ secondImage.addEventListener('click', function() {
 thirdImage.addEventListener('click', function() {
   handleImage(allProducts[rand1]);
 });
+
 // BUTTON FUNCTION
 var hidden;
 function checkButton() {
@@ -76,14 +84,17 @@ function checkButton() {
     results.style.display = 'block';
   }
 }
+
 // EVENT LISTENER FOR BUTTON
 var button = document.getElementById('results')
 button.addEventListener('click', handleButton);
+
 // HANDLER FOR BUTTON
 function handleButton() {
   chart1();
   chart2();
 }
+
 // MAKE DATA ARRAY FOR PERCENT CHART
 var percentChart  = [];
 function dataSets1() {
@@ -91,6 +102,7 @@ function dataSets1() {
     percentChart[i] =  productArray[i].percentClick;
   }
 };
+
 // MAKE PERCENT CHART
 function chart1() {
   var data = {
@@ -110,6 +122,8 @@ function chart1() {
   var ctx = document.getElementById('canvasOne').getContext('2d');
   var myBarChart = new Chart(ctx).Bar(data);
 }
+
+
 // MAKE DATA ARRAY FOR DISPLAYED ITEMS
 var displayedChart  = [];
 function dataSets2() {
