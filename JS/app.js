@@ -11,8 +11,8 @@ function Product(names, src) {
   productArray.push(this);
 }
 // METHOD FOR CALCULATING PERCENTAGE
-Product.prototype.percent = function () {
-  this.percentClick = (+((this.timesClicked / this.timesDisplayed).toFixed(2)) * 100);
+function percent(obj) {
+  return obj.percentClick = (obj.timesClicked / obj.timesDisplayed).toFixed(2) * 100;
 };
 function generateRandom() {
   return +(Math.floor((Math.random() * productArray.length)));
@@ -41,12 +41,12 @@ function random() {
   img3.src = allProducts[rand3].src;
   allProducts[rand3].timesDisplayed++;
 }
-random();
 // EVENT HANDLER FOR IMAGE
 function handleImage(image) {
+  percent(image);
   image.timesClicked += 1;
   count += 1;
-  image.percent();
+  // image.percent();
   checkButton();
   dataSets1();
   dataSets2();
@@ -74,16 +74,28 @@ function checkButton() {
 }
 // EVENT LISTENER FOR BUTTON
 function handleButton() {
+  localStorage.setItem('chartPersist', JSON.stringify(productArray));
   chart1();
   chart2();
 }
 var button = document.getElementById('results')
 // HANDLER FOR BUTTON
 button.addEventListener('click', handleButton);
+
+function clearLS() {
+  if(localStorage.chartPersist) {
+    productArray = [];
+    productArray = JSON.parse(localStorage.chartPersist);
+  }
+  else {
+    localStorage.setItem('chartPersist', JSON.stringify(productArray));
+  }
+};
 // MAKE DATA ARRAY FOR PERCENT CHART
 var percentChart  = [];
 function dataSets1() {
   for (var i = 0; i < allProducts.length; i++){
+    percent(productArray[i]);
     percentChart[i] =  productArray[i].percentClick;
   }
 }
@@ -122,12 +134,14 @@ function chart1() {
 var displayedChart  = [];
 function dataSets2() {
   for (var i = 0; i < allProducts.length; i++){
+    percent(productArray[i]);
     displayedChart[i] =  productArray[i].timesDisplayed;
   }
 };
 var clickedChart  = [];
 function dataSets3() {
   for (var i = 0; i < allProducts.length; i++){
+    percent(productArray[i]);
     clickedChart[i] =  productArray[i].timesClicked;
   }
 };
@@ -170,3 +184,5 @@ function chart2() {
   var myBarChart2 = new Chart(ctx).Bar(data);
   document.getElementById('legendTwo').innerHTML = myBarChart2.generateLegend();
 }
+clearLS();
+random();
