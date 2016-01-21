@@ -10,7 +10,8 @@
   <body>
     <!-- TITLE -->
     <section class='intro'>
-      <h2>Select the image that appeals to you the most!</h2>
+      <img src="img/busmallbently.png"/>
+      <h2 id='header'>Select the image that appeals to you the most!</h2>
     </section>
     <!-- IMAGES -->
     <section class='flex-container'>
@@ -29,15 +30,18 @@
       <button hidden type="button" id='results'>Display Results</button>
     </section>
     <!-- BAR CHART -->
-    <section class='chart'>
-      <canvas id="canvasOne" width="300" height="300"></canvas>
-      <canvas id="canvasTwo" width="300" height="300"></canvas>
+    <section id='sectionTable'>
+      <article id='title1'>
+        <h3 id='nameChart1'></h3>
+        <canvas id="canvasOne" width="400" height="400"></canvas>
+        <div id="legendOne"></div>
+      </article>
+      <article id='title2'>
+        <h3 id='nameChart2'></h3>
+        <canvas id="canvasTwo" width="400" height="400"></canvas>
+        <div id="legendTwo"></div>
+      </article>
     </section>
-    <!-- POLAR AREA CHART -->
-    <section class='chart'>
-      <canvas id="canvasThree" width="300" height="300"></canvas>
-    </section>
-    <!-- JAVASCRIPT -->
-    <script type="text/javascript" src='joke2.js'></script>
+    <script type="text/javascript" src='js/joke2.js'></script>
   </body>
 </html>
