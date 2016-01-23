@@ -20,7 +20,11 @@ function Product(names, src) {
 
 // FUNCTIONS
 function percent(obj) {
-  return obj.percentClick = (obj.timesClicked / obj.timesDisplayed).toFixed(2) * 100;
+  if (obj.timesDisplayed === 0) {
+    return 0
+  } else {
+    return obj.percentClick = (obj.timesClicked / obj.timesDisplayed).toFixed(2) * 100;
+  }
 };
 function generateRandom() {
   return +(Math.floor((Math.random() * productArray.length)));
@@ -49,6 +53,7 @@ function clearLS() {
   if(localStorage.chartPersist) {
     productArray = [];
     productArray = JSON.parse(localStorage.chartPersist);
+    console.log(productArray);
   }
   else {
     localStorage.setItem('chartPersist', JSON.stringify(productArray));
