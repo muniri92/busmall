@@ -1,6 +1,13 @@
 'use strict'
+// GLOBAL VARIABLES
 var productArray = [];
 var count = 0;
+var allProducts = [new Product('bag', 'bag.jpg'), new Product('banana', 'banana.jpg'), new Product('boots', 'boots.jpg'), new Product('chair', 'chair.jpg'), new Product('cthulhu', 'cthulhu.jpg'), new Product('dragon', 'dragon.jpg'), new Product('pen', 'pen.jpg'), new Product('scissors', 'scissors.jpg'), new Product('shark', 'shark.jpg'), new Product('sweep', 'sweep.jpg'), new Product('unicorn', 'unicorn.jpg'), new Product('usb', 'usb.gif'), new Product('waterCan', 'water-can.jpg'), new Product('wineGlass', 'wine-glass.jpg')];
+var rand1, rand2, rand3;
+var percentChart  = [];
+var displayedChart  = [];
+var clickedChart  = [];
+
 // CONSTRUCTOR
 function Product(names, src) {
   this.names = names;
@@ -10,17 +17,18 @@ function Product(names, src) {
   this.percentClick = 0;
   productArray.push(this);
 }
-// METHOD FOR CALCULATING PERCENTAGE
+
+// FUNCTIONS
 function percent(obj) {
-  return obj.percentClick = (obj.timesClicked / obj.timesDisplayed).toFixed(2) * 100;
+  if (obj.timesDisplayed === 0) {
+    return 0
+  } else {
+    return obj.percentClick = (obj.timesClicked / obj.timesDisplayed).toFixed(2) * 100;
+  }
 };
 function generateRandom() {
   return +(Math.floor((Math.random() * productArray.length)));
 };
-// ALL PRODUCT ARRAY
-var allProducts = [new Product('bag', 'bag.jpg'), new Product('banana', 'banana.jpg'), new Product('boots', 'boots.jpg'), new Product('chair', 'chair.jpg'), new Product('cthulhu', 'cthulhu.jpg'), new Product('dragon', 'dragon.jpg'), new Product('pen', 'pen.jpg'), new Product('scissors', 'scissors.jpg'), new Product('shark', 'shark.jpg'), new Product('sweep', 'sweep.jpg'), new Product('unicorn', 'unicorn.jpg'), new Product('usb', 'usb.gif'), new Product('waterCan', 'water-can.jpg'), new Product('wineGlass', 'wine-glass.jpg')];
-// TO AVIOD REPEATING PICTURES
-var rand1, rand2, rand3;
 function random() {
   var img1 = document.getElementById('firstImage');
   rand1 = generateRandom();
@@ -41,19 +49,18 @@ function random() {
   img3.src = allProducts[rand3].src;
   allProducts[rand3].timesDisplayed++;
 }
-// EVENT HANDLER FOR IMAGE
-function handleImage(image) {
-  percent(image);
-  image.timesClicked += 1;
-  count += 1;
-  // image.percent();
-  checkButton();
-  dataSets1();
-  dataSets2();
-  dataSets3();
-  random();
-}
-// EVENT LISTENERS FOR IMAGE
+function clearLS() {
+  if(localStorage.chartPersist) {
+    productArray = [];
+    productArray = JSON.parse(localStorage.chartPersist);
+    console.log(productArray);
+  }
+  else {
+    localStorage.setItem('chartPersist', JSON.stringify(productArray));
+  }
+};
+
+// EVENT LISTENERS & HANDLERS
 firstImage.addEventListener('click', function(){
   handleImage(allProducts[rand1]);
 });
@@ -63,43 +70,50 @@ secondImage.addEventListener('click', function() {
 thirdImage.addEventListener('click', function() {
   handleImage(allProducts[rand3]);
 });
-// BUTTON FUNCTION
-var hidden;
-function checkButton() {
+function handleImage(image) {
+  percent(image);
+  image.timesClicked += 1;
+  count += 1;
+  var buttons = document.getElementById('results');
+  var imageDelete = document.getElementById('flex-container');
   if (count < 15) {
-    results.removeAttribute(hidden);
+    random();
   } else {
-    results.style.display = 'block';
+    dataSets1();
+    dataSets2();
+    dataSets3();
+    buttons.style.display = 'block';
+    imageDelete.style.display = 'none';
   }
 }
-// EVENT LISTENER FOR BUTTON
+button.addEventListener('click', handleButton);
 function handleButton() {
   localStorage.setItem('chartPersist', JSON.stringify(productArray));
   chart1();
   chart2();
 }
-var button = document.getElementById('results')
-// HANDLER FOR BUTTON
-button.addEventListener('click', handleButton);
 
-function clearLS() {
-  if(localStorage.chartPersist) {
-    productArray = [];
-    productArray = JSON.parse(localStorage.chartPersist);
-  }
-  else {
-    localStorage.setItem('chartPersist', JSON.stringify(productArray));
-  }
-};
-// MAKE DATA ARRAY FOR PERCENT CHART
-var percentChart  = [];
+// FUNCTIONS TO MAKE DATA ARRAY FOR CHARTS
 function dataSets1() {
   for (var i = 0; i < allProducts.length; i++){
     percent(productArray[i]);
     percentChart[i] =  productArray[i].percentClick;
   }
 }
-// MAKE PERCENT CHART
+function dataSets2() {
+  for (var i = 0; i < allProducts.length; i++){
+    percent(productArray[i]);
+    displayedChart[i] =  productArray[i].timesDisplayed;
+  }
+};
+function dataSets3() {
+  for (var i = 0; i < allProducts.length; i++){
+    percent(productArray[i]);
+    clickedChart[i] =  productArray[i].timesClicked;
+  }
+};
+
+// MAKE CHARTS
 var sectionTable = document.getElementById('sectionTable');
 function chart1() {
   var nameChart1 = document.getElementById('nameChart1');
@@ -130,22 +144,6 @@ function chart1() {
   var myBarChart = new Chart(ctx).Bar(data);
   document.getElementById('legendOne').innerHTML = myBarChart.generateLegend();
 }
-// MAKE DATA ARRAY FOR DISPLAYED / CLICKED ITEMS
-var displayedChart  = [];
-function dataSets2() {
-  for (var i = 0; i < allProducts.length; i++){
-    percent(productArray[i]);
-    displayedChart[i] =  productArray[i].timesDisplayed;
-  }
-};
-var clickedChart  = [];
-function dataSets3() {
-  for (var i = 0; i < allProducts.length; i++){
-    percent(productArray[i]);
-    clickedChart[i] =  productArray[i].timesClicked;
-  }
-};
-// MAKE PERCENT CHART
 function chart2() {
   var nameChart2 = document.getElementById('nameChart2');
   nameChart2.textContent = 'Times Products Were Clicked vs Displayed';
@@ -179,10 +177,12 @@ function chart2() {
         data: displayedChart
       }
     ]
-  };
+  }
   var ctx = document.getElementById('canvasTwo').getContext('2d');
   var myBarChart2 = new Chart(ctx).Bar(data);
   document.getElementById('legendTwo').innerHTML = myBarChart2.generateLegend();
-}
+};
+
+//DECLARE FUNCTIONS
 clearLS();
 random();

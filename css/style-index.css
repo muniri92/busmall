@@ -17,7 +17,7 @@ body {
 #thirdImage {
   border-style: outset;
 }
-.flex-container {
+#flex-container {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
