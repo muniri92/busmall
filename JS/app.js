@@ -48,12 +48,11 @@ function random() {
   }
   img3.src = allProducts[rand3].src;
   allProducts[rand3].timesDisplayed++;
-}
+};
 function clearLS() {
   if(localStorage.chartPersist) {
     productArray = [];
     productArray = JSON.parse(localStorage.chartPersist);
-    console.log(productArray);
   }
   else {
     localStorage.setItem('chartPersist', JSON.stringify(productArray));
@@ -85,13 +84,13 @@ function handleImage(image) {
     buttons.style.display = 'block';
     imageDelete.style.display = 'none';
   }
-}
+};
 button.addEventListener('click', handleButton);
 function handleButton() {
   localStorage.setItem('chartPersist', JSON.stringify(productArray));
   chart1();
   chart2();
-}
+};
 
 // FUNCTIONS TO MAKE DATA ARRAY FOR CHARTS
 function dataSets1() {
@@ -99,7 +98,7 @@ function dataSets1() {
     percent(productArray[i]);
     percentChart[i] =  productArray[i].percentClick;
   }
-}
+};
 function dataSets2() {
   for (var i = 0; i < allProducts.length; i++){
     percent(productArray[i]);
@@ -143,7 +142,7 @@ function chart1() {
   var ctx = document.getElementById('canvasOne').getContext('2d');
   var myBarChart = new Chart(ctx).Bar(data);
   document.getElementById('legendOne').innerHTML = myBarChart.generateLegend();
-}
+};
 function chart2() {
   var nameChart2 = document.getElementById('nameChart2');
   nameChart2.textContent = 'Times Products Were Clicked vs Displayed';
@@ -177,7 +176,7 @@ function chart2() {
         data: displayedChart
       }
     ]
-  }
+  };
   var ctx = document.getElementById('canvasTwo').getContext('2d');
   var myBarChart2 = new Chart(ctx).Bar(data);
   document.getElementById('legendTwo').innerHTML = myBarChart2.generateLegend();
